@@ -1,0 +1,7 @@
+ruta: jdbc:mysql://dam2.mysql.iesquevedo.es:3335/jorgetorrijos_tfg?useSSL=false
+#ruta: jdbc:mysql://192.168.0.40:3306/jorgetorrijos_tfg_local?useSSL=false
+user: root
+password: quevedo2dam
+#password: root
+driver: com.mysql.cj.jdbc.Driver
+
