@@ -9,6 +9,7 @@ public class ConstantesDAO {
     public static final String EVENTOS_FILTRADOS_POR_PROVINCIA_y_TIPO = "select eventos.id,eventos.titulo, eventos.descripcion, eventos.img, eventos.pag_oficial_evento, eventos.fecha, p.nombre as provincia, tc.nombre as tipo from eventos join provincia p on eventos.provincia = p.id_provincia join tipo_carrera tc on tc.id = eventos.tipo WHERE p.nombre = ? AND tc.nombre = ?";
     public static final String GET_EVENTO_BY_ID = "select eventos.id, eventos.titulo, eventos.descripcion, eventos.img, eventos.pag_oficial_evento, eventos.fecha, p.nombre as provincia, tc.nombre as tipo from eventos join provincia p on eventos.provincia = p.id_provincia join tipo_carrera tc on tc.id = eventos.tipo where eventos.id = ?";
 
+    public static final String INSERT_EVENTOS ="insert into eventos (titulo, descripcion, img, tipo, provincia, pag_oficial_evento, fecha) VALUES (?,?,?,?,?,?,?)";
 
     //carreras
 
@@ -21,6 +22,9 @@ public class ConstantesDAO {
     public static final String GET_CARRERA_BY_ID = "select carreras.id, carreras.titulo, carreras.descripcion, carreras.img, carreras.km, carreras.ciudad, carreras.precio, carreras.enlace_compra, carreras.evento as id_evento from carreras where id = ?";
 
     public static final String GET_CARRERAS_BY_USER = "select carreras.id as id, carreras.titulo, carreras.descripcion, carreras.img, km, ciudad, precio, enlace_compra, evento, usuario, id_carrera, p.nombre as provincia, tc.nombre as tipo from carreras join carreras_favoritas cf on carreras.id = cf.id_carrera join eventos e on e.id = carreras.evento join tipo_carrera tc on e.tipo = tc.id join provincia p on e.provincia = p.id_provincia where cf.usuario = ?";
+
+    public static final String INSERTAR_CARRERAS = "insert into carreras(titulo, descripcion, img, km, ciudad, precio, enlace_compra, evento) VALUES (?,?,?,?,?,?,?,?)";
+    public static final String GET_ALL_CARRERAS= "select * from carreras";
 
     //provincias
 

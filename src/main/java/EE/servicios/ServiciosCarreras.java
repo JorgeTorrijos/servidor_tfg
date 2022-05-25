@@ -1,6 +1,8 @@
 package EE.servicios;
 
 import dao.daos.DaoCarreras;
+import dao.modelos.CarreraSimpleMostrar;
+import dao.modelos.CarreraToInsert;
 import dao.modelos.Carreras;
 import io.vavr.control.Either;
 import jakarta.inject.Inject;
@@ -26,6 +28,15 @@ public class ServiciosCarreras {
 
     public Either<String, List<Carreras>> getCarrerasByUser(String user) {
         return daoCarreras.getCarrerasByUser(user);
+    }
+
+    public Either<String, CarreraToInsert> insertarCarrera(CarreraToInsert carreraToInsert) {
+        return daoCarreras.insertarCarrera(carreraToInsert);
+    }
+
+    public Either<String, List<CarreraSimpleMostrar>> getAllCarreras() {
+        return daoCarreras.getAllCarreras();
+
     }
 
     /*

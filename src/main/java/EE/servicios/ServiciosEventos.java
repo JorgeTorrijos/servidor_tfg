@@ -2,6 +2,7 @@ package EE.servicios;
 
 import dao.daos.DaoEventos;
 import dao.modelos.Eventos;
+import dao.modelos.EventosToInsert;
 import io.vavr.control.Either;
 import jakarta.inject.Inject;
 
@@ -22,6 +23,10 @@ public class ServiciosEventos {
 
     public Either<String, List<Eventos>> getEventoById(int id) {
         return daoEventos.getEventoById(id);
+    }
+
+    public Either<String, EventosToInsert> insertarEvento(EventosToInsert eventos) {
+        return daoEventos.insertarEvento(eventos);
     }
 
 }
