@@ -6,6 +6,7 @@ import dao.modelos.CarreraSimpleMostrar;
 import dao.modelos.CarreraToInsert;
 import dao.modelos.Carreras;
 import io.vavr.control.Either;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -14,6 +15,7 @@ import jakarta.ws.rs.core.Response;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@RolesAllowed(ConstantesREST.USER_ROL)
 @Path("/carreras")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -92,6 +94,7 @@ public class RestCarreras {
 
     }
 
+    @RolesAllowed(ConstantesREST.ADMIN_ROL)
     @POST
     public Response insertarCarrera(CarreraToInsert carreraToInsert) {
 
@@ -133,96 +136,27 @@ public class RestCarreras {
         return response;
     }
 
-
-    /*
-
-    @GET
-    public Response getAllCarreras() {
+    @RolesAllowed(ConstantesREST.ADMIN_ROL)
+    @DELETE
+    public Response deleteCarrera(@QueryParam("id") String id) {
 
         Response response = null;
 
-        Either<String, List<Carreras>> getAllCarreras = serviciosCarreras.getAllCarreras();
+        Either<String, String> deleteEvento = serviciosCarreras.deleteCarrera(id);
 
-        if (getAllCarreras.isRight()) {
+        if (deleteEvento.isRight()) {
 
-            response = Response.ok(getAllCarreras.get()).build();
+            response = Response.ok(new ApiError(deleteEvento.get(), LocalDateTime.now())).build();
+
 
         } else {
 
-            response = Response.status(Response.Status.NOT_FOUND).entity(new ApiError(getAllCarreras.getLeft(), LocalDateTime.now())).build();
+            response = Response.status(Response.Status.NOT_FOUND).entity(new ApiError(deleteEvento.getLeft(), LocalDateTime.now())).build();
 
         }
 
         return response;
 
     }
-
-    @GET
-    @Path("/ultimas")
-    public Response getUltimasCarrerasAdded() {
-
-        Response response = null;
-
-        Either<String, List<Carreras>> getAllCarreras = serviciosCarreras.getUltimasCarrerasAdded();
-
-        if (getAllCarreras.isRight()) {
-
-            response = Response.ok(getAllCarreras.get()).build();
-
-        } else {
-
-            response = Response.status(Response.Status.NOT_FOUND).entity(new ApiError(getAllCarreras.getLeft(), LocalDateTime.now())).build();
-
-        }
-
-        return response;
-
-    }
-
-    @GET
-    @Path("/filtro-provincia")
-    public Response filtradasPorProvincia(@QueryParam("provincia") String provincia) {
-
-        Response response = null;
-
-        Either<String, List<Carreras>> filtradasPorProvincia = serviciosCarreras.filtradasPorProvincia(provincia);
-
-        if (filtradasPorProvincia.isRight()) {
-
-            response = Response.ok(filtradasPorProvincia.get()).build();
-
-        } else {
-
-            response = Response.status(Response.Status.NOT_FOUND).entity(new ApiError(filtradasPorProvincia.getLeft(), LocalDateTime.now())).build();
-
-        }
-
-        return response;
-
-    }
-
-    @GET
-    @Path("/filtro-tipo")
-    public Response filtradasPorTipo(@QueryParam("tipo") String tipo) {
-
-        Response response = null;
-
-        Either<String, List<Carreras>> filtradasPorTipo = serviciosCarreras.filtradasPorTipo(tipo);
-
-        if (filtradasPorTipo.isRight()) {
-
-            response = Response.ok(filtradasPorTipo.get()).build();
-
-        } else {
-
-            response = Response.status(Response.Status.NOT_FOUND).entity(new ApiError(filtradasPorTipo.getLeft(), LocalDateTime.now())).build();
-
-        }
-
-        return response;
-
-    }
-
-     */
 
 }

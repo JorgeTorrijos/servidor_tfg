@@ -213,4 +213,25 @@ public class DaoEventos {
 
     }
 
+    public Either<String, String> deleteEvento(String id) {
+
+        Either<String, String> respuesta = null;
+
+        JdbcTemplate jtm = new JdbcTemplate(dbConnection.getDataSource());
+
+        try {
+
+            jtm.update("Delete from eventos where id = ?", id);
+            respuesta =  Either.right("Evento con ID: " + id + " ELIMINADO");
+
+        } catch (DataAccessException dataAccessException) {
+            log.error(dataAccessException.getMessage());
+            respuesta = Either.left("Eventos no encontrado");
+
+        }
+
+        return respuesta;
+
+    }
+
 }

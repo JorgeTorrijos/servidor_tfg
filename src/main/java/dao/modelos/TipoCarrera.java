@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TipoCarrera {
 
+    //TODO ANTES NO HABIA ID
+    private int id;
     private String nombre;
 
 }

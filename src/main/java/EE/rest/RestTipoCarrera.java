@@ -5,6 +5,7 @@ import EE.servicios.ServiciosTipoCarrera;
 import dao.modelos.Provincia;
 import dao.modelos.TipoCarrera;
 import io.vavr.control.Either;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -16,6 +17,7 @@ import jakarta.ws.rs.core.Response;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@RolesAllowed(ConstantesREST.USER_ROL)
 @Path("/tipos")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

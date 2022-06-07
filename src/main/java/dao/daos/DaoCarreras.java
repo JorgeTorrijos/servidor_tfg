@@ -156,6 +156,27 @@ public class DaoCarreras {
 
     }
 
+    public Either<String, String> deleteCarrera(String id) {
+
+        Either<String, String> respuesta = null;
+
+        JdbcTemplate jtm = new JdbcTemplate(dbConnection.getDataSource());
+
+        try {
+
+            jtm.update("Delete from carreras where id = ?", id);
+            respuesta =  Either.right("Carrera con ID: " + id + " ELIMINADO");
+
+        } catch (DataAccessException dataAccessException) {
+            log.error(dataAccessException.getMessage());
+            respuesta = Either.left("Carrera no encontrada");
+
+        }
+
+        return respuesta;
+
+    }
+
     /*
 
     public Either<String, List<Carreras>> getAllCarreras() {

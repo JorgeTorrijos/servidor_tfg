@@ -29,4 +29,8 @@ public class ServiciosEventos {
         return daoEventos.insertarEvento(eventos);
     }
 
+    public Either<String, String> deleteEvento(String id){
+        return daoEventos.deleteEvento(id);
+    }
+
 }

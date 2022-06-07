@@ -28,10 +28,10 @@ public class ConstantesDAO {
 
     //provincias
 
-    public static final String FILTROS_PROVINCIAS = "select nombre from provincia";
+    public static final String FILTROS_PROVINCIAS = "select * from provincia";
 
     //tipo carreras
 
-    public static final String FILTROS_TIPO_CARRERA = "select nombre from tipo_carrera";
+    public static final String FILTROS_TIPO_CARRERA = "select * from tipo_carrera";
 
 }

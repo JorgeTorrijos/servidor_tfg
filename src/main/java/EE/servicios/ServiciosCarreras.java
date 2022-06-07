@@ -39,6 +39,10 @@ public class ServiciosCarreras {
 
     }
 
+    public Either<String, String> deleteCarrera(String id) {
+        return daoCarreras.deleteCarrera(id);
+    }
+
     /*
 
     public Either<String, List<Carreras>> getAllCarreras() {

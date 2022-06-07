@@ -4,6 +4,7 @@ import EE.api.ApiError;
 import EE.servicios.ServiciosCarrerasFavoritas;
 import dao.modelos.CarreraFavoritaInsert;
 import io.vavr.control.Either;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -11,6 +12,7 @@ import jakarta.ws.rs.core.Response;
 
 import java.time.LocalDateTime;
 
+@RolesAllowed(ConstantesREST.USER_ROL)
 @Path("/carreras-favoritas")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

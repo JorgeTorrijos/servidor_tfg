@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Provincia {
+public class UsuarioDTOlist {
 
-    //TODO ANTES NO HABIA ID PROVINCIA
-    private String id_provincia;
-    private String nombre;
+    private String username;
+    private double peso;
+    private String tipo;
 
 }

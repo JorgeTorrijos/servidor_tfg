@@ -71,6 +71,7 @@ public class RestEventos {
 
     }
 
+    @RolesAllowed(ConstantesREST.ADMIN_ROL)
     @POST
     public Response insertPartido(EventosToInsert eventos) {
 
@@ -86,6 +87,29 @@ public class RestEventos {
         } else {
 
             response = Response.status(Response.Status.NOT_FOUND).entity(new ApiError(insertPartido.getLeft(), LocalDateTime.now())).build();
+
+        }
+
+        return response;
+
+    }
+
+    @RolesAllowed(ConstantesREST.ADMIN_ROL)
+    @DELETE
+    public Response deleteEvento(@QueryParam("id_evento") String id_evento) {
+
+        Response response = null;
+
+        Either<String, String> deleteEvento = serviciosEventos.deleteEvento(id_evento);
+
+        if (deleteEvento.isRight()) {
+
+            response = Response.ok(new ApiError(deleteEvento.get(), LocalDateTime.now())).build();
+
+
+        } else {
+
+            response = Response.status(Response.Status.NOT_FOUND).entity(new ApiError(deleteEvento.getLeft(), LocalDateTime.now())).build();
 
         }
 
