@@ -64,4 +64,5 @@ public class ConstantesDAO {
     public static final String USUARIO_CON_USERNAME = "Usuario con username: ";
     public static final String NO_EXISTE = "no existe";
     public static final String USERNAME_NO_ENCONTRADO = "Username no encontrado";
+    public static final String DELETE_FROM_CARRERAS_FAVORITAS_WHERE_ID = "Delete from carreras_favoritas where id_carrera = ?";
 }

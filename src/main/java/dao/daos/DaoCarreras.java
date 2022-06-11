@@ -10,8 +10,12 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
@@ -162,12 +166,23 @@ public class DaoCarreras {
 
         JdbcTemplate jtm = new JdbcTemplate(dbConnection.getDataSource());
 
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DataSourceTransactionManager transactionManager = new DataSourceTransactionManager(dbConnection.getDataSource());
+        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
+
         try {
 
+            //BORRAMOS LA CARRERA DE LOS USUARIOS
+            jtm.update(ConstantesDAO.DELETE_FROM_CARRERAS_FAVORITAS_WHERE_ID, id);
+            //BORRAMOS LA CARRERA
             jtm.update(ConstantesDAO.DELETE_FROM_CARRERAS_WHERE_ID, id);
             respuesta = Either.right(ConstantesDAO.CARRERA_CON_ID + id + ConstantesDAO.ELIMINADO);
 
+            transactionManager.commit(txStatus);
+
         } catch (DataAccessException dataAccessException) {
+
+            transactionManager.rollback(txStatus);
             log.error(dataAccessException.getMessage());
             respuesta = Either.left(ConstantesDAO.CARRERA_NO_ENCONTRADA);
 

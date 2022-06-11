@@ -9,8 +9,12 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -221,10 +225,12 @@ public class DaoEventos {
 
         try {
 
+            //BORRAMOS EL EVENTO
             jtm.update(ConstantesDAO.DELETE_FROM_EVENTOS_WHERE_ID, id);
             respuesta = Either.right(ConstantesDAO.EVENTO_CON_ID + id + ConstantesDAO.ELIMINADO_);
 
         } catch (DataAccessException dataAccessException) {
+
             log.error(dataAccessException.getMessage());
             respuesta = Either.left(ConstantesDAO.EVENTOS_NO_ENCONTRADO);
 
