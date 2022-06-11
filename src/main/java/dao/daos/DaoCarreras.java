@@ -41,7 +41,7 @@ public class DaoCarreras {
 
         } catch (DataAccessException dataAccessException) {
             log.error(dataAccessException.getMessage());
-            respuesta = Either.left("Carreras no encontradas");
+            respuesta = Either.left(ConstantesDAO.CARRERAS_NO_ENCONTRADAS);
 
         }
 
@@ -63,7 +63,7 @@ public class DaoCarreras {
 
         } catch (DataAccessException dataAccessException) {
             log.error(dataAccessException.getMessage());
-            respuesta = Either.left("Carreras no encontradas");
+            respuesta = Either.left(ConstantesDAO.CARRERAS_NO_ENCONTRADAS);
 
         }
 
@@ -84,7 +84,7 @@ public class DaoCarreras {
 
         } catch (DataAccessException dataAccessException) {
             log.error(dataAccessException.getMessage());
-            respuesta = Either.left("Carreras no encontradas");
+            respuesta = Either.left(ConstantesDAO.CARRERAS_NO_ENCONTRADAS);
 
         }
 
@@ -105,7 +105,7 @@ public class DaoCarreras {
 
         } catch (DataAccessException dataAccessException) {
             log.error(dataAccessException.getMessage());
-            respuesta = Either.left("Carreras no encontradas");
+            respuesta = Either.left(ConstantesDAO.CARRERAS_NO_ENCONTRADAS);
 
         }
 
@@ -148,7 +148,7 @@ public class DaoCarreras {
 
         } catch (DataAccessException dataAccessException) {
             log.error(dataAccessException.getMessage());
-            respuesta = Either.left("PROBLEMA AL INSERTAR CARRERA");
+            respuesta = Either.left(ConstantesDAO.PROBLEMA_AL_INSERTAR_CARRERA);
 
         }
 
@@ -164,107 +164,16 @@ public class DaoCarreras {
 
         try {
 
-            jtm.update("Delete from carreras where id = ?", id);
-            respuesta =  Either.right("Carrera con ID: " + id + " ELIMINADO");
+            jtm.update(ConstantesDAO.DELETE_FROM_CARRERAS_WHERE_ID, id);
+            respuesta = Either.right(ConstantesDAO.CARRERA_CON_ID + id + ConstantesDAO.ELIMINADO);
 
         } catch (DataAccessException dataAccessException) {
             log.error(dataAccessException.getMessage());
-            respuesta = Either.left("Carrera no encontrada");
+            respuesta = Either.left(ConstantesDAO.CARRERA_NO_ENCONTRADA);
 
         }
 
         return respuesta;
 
     }
-
-    /*
-
-    public Either<String, List<Carreras>> getAllCarreras() {
-
-        Either<String, List<Carreras>> respuesta = null;
-
-        JdbcTemplate jtm = new JdbcTemplate(dbConnection.getDataSource());
-
-        try {
-
-            respuesta = Either.right(jtm.query(ConstantesDAO.GET_ALL_CARRERAS, BeanPropertyRowMapper.newInstance(Carreras.class)));
-
-
-        } catch (DataAccessException dataAccessException) {
-            log.error(dataAccessException.getMessage());
-            respuesta = Either.left("Carreras no encontradas");
-
-        }
-
-        return respuesta;
-
-    }
-
-    public Either<String, List<Carreras>> getUltimasCarrerasAdded() {
-
-
-        Either<String, List<Carreras>> respuesta = null;
-
-        JdbcTemplate jtm = new JdbcTemplate(dbConnection.getDataSource());
-
-        try {
-
-            respuesta = Either.right(jtm.query(ConstantesDAO.GET_ULTIMAS_CARRERAS_ADD_5, BeanPropertyRowMapper.newInstance(Carreras.class)));
-
-
-        } catch (DataAccessException dataAccessException) {
-            log.error(dataAccessException.getMessage());
-            respuesta = Either.left("Carreras no encontradas");
-
-        }
-
-        return respuesta;
-
-    }
-
-    public Either<String, List<Carreras>> filtradasPorProvincia(String provincia) {
-
-
-        Either<String, List<Carreras>> respuesta = null;
-
-        JdbcTemplate jtm = new JdbcTemplate(dbConnection.getDataSource());
-
-        try {
-
-            respuesta = Either.right(jtm.query(ConstantesDAO.FILTRADAS_POR_PROVINCIA, BeanPropertyRowMapper.newInstance(Carreras.class),provincia));
-
-        } catch (DataAccessException dataAccessException) {
-            log.error(dataAccessException.getMessage());
-            respuesta = Either.left("Carreras no encontradas en la provincia de " + provincia);
-
-        }
-
-        return respuesta;
-
-    }
-
-    public Either<String, List<Carreras>> filtradasPorTipo(String tipo) {
-
-
-
-        Either<String, List<Carreras>> respuesta = null;
-
-        JdbcTemplate jtm = new JdbcTemplate(dbConnection.getDataSource());
-
-        try {
-
-            respuesta = Either.right(jtm.query(ConstantesDAO.FILTRADAS_POR_TIPO_CARRERA, BeanPropertyRowMapper.newInstance(Carreras.class),tipo));
-
-        } catch (DataAccessException dataAccessException) {
-            log.error(dataAccessException.getMessage());
-            respuesta = Either.left("Carreras de "+tipo+" no encontradas");
-
-        }
-
-        return respuesta;
-
-    }
-
-
-     */
 }

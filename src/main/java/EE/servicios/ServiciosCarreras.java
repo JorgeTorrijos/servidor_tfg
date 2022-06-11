@@ -43,24 +43,5 @@ public class ServiciosCarreras {
         return daoCarreras.deleteCarrera(id);
     }
 
-    /*
-
-    public Either<String, List<Carreras>> getAllCarreras() {
-        return daoCarreras.getAllCarreras();
-    }
-
-    public Either<String, List<Carreras>> getUltimasCarrerasAdded() {
-        return daoCarreras.getUltimasCarrerasAdded();
-    }
-
-    public Either<String, List<Carreras>> filtradasPorProvincia(String provincia) {
-        return daoCarreras.filtradasPorProvincia(provincia);
-    }
-
-    public Either<String, List<Carreras>> filtradasPorTipo(String tipo) {
-        return daoCarreras.filtradasPorTipo(tipo);
-    }
-
-     */
 
 }

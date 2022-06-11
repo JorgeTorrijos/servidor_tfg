@@ -59,10 +59,9 @@ public class JWAuth implements HttpAuthenticationMechanism {
 
                 if (c.getStatus() == CredentialValidationResult.Status.VALID) {
 
-                    //TODO CAMBIAMOS TIEMPO PARA PRUEBA ANGULAR
                     String jws = Jwts.builder()
                             .setExpiration(Date
-                                    .from(LocalDateTime.now().plusMinutes(100).atZone(ZoneId.systemDefault())
+                                    .from(LocalDateTime.now().plusMinutes(25).atZone(ZoneId.systemDefault())
                                             .toInstant()))
                             .claim(ConstantesSecurity.USER, c.getCallerPrincipal().getName())
                             .claim(ConstantesSecurity.GROUP, c.getCallerGroups())

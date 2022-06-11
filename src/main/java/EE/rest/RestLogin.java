@@ -3,15 +3,13 @@ package EE.rest;
 import EE.api.ApiError;
 import EE.servicios.ServiciosUsuarios;
 import dao.modelos.UserLogin;
+import dao.modelos.UsuarioToAccess;
 import io.vavr.control.Either;
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -19,6 +17,7 @@ import utils.CreateHash;
 
 import java.time.LocalDateTime;
 import java.util.Base64;
+
 
 @Path(ConstantesREST.LOGIN)
 @Produces(MediaType.APPLICATION_JSON)
@@ -37,22 +36,16 @@ public class RestLogin {
         this.httpServletRequest = httpServletRequest;
     }
 
-    @GET
     @PermitAll
-    public Response doLogin() {
-
+    @GET
+    public Response doLogin(@QueryParam(ConstantesREST.USERNAME) String username, @QueryParam(ConstantesREST.PASS) String pass) {
         Response response = null;
 
-        String header = httpServletRequest.getHeader(HttpHeaders.AUTHORIZATION);
+        UsuarioToAccess usuario = new UsuarioToAccess();
+        usuario.setUsername(username);
+        usuario.setPass(pass);
 
-        String[] valores = header.split(ConstantesREST.ESPACIO);
-        String userPass = new String(Base64.getUrlDecoder().decode(valores[1]));
-        String[] userPassSeparado = userPass.split(ConstantesREST.DOS_PUNTOS);
-
-        String user = userPassSeparado[0];
-        String pass = userPassSeparado[1];
-
-        Either<String, UserLogin> getUserActivo = serviciosUsuarios.getUserActivo(user);
+        Either<String, UserLogin> getUserActivo = serviciosUsuarios.getUserActivo(usuario.getUsername());
 
         if (getUserActivo.isRight()) {
 
@@ -63,7 +56,7 @@ public class RestLogin {
             userLogin1.setTipo_user(userLogin.getTipo_user());
 
             //COMPROBAMOS CONTRASEÑA
-            if (createHash.verify(pass, userLogin.getPass())) {
+            if (createHash.verify(usuario.getPass(), userLogin.getPass())) {
 
                 if (getUserActivo.isRight()) {
 
@@ -94,7 +87,7 @@ public class RestLogin {
 
     @RolesAllowed(ConstantesREST.ADMIN_ROL)
     @GET
-    @Path("/administradores")
+    @Path(ConstantesREST.ADMINISTRADORES)
     public Response doLoginAdministradores() {
         Response response = null;
 

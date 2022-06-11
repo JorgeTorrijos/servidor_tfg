@@ -45,7 +45,7 @@ public class DaoUsuarios {
                 jdbcTemplate.update(connection -> {
 
                     PreparedStatement ps = connection.prepareStatement(
-                            "insert into usuarios (username, pass, peso, tipo_user) VALUES (?,?,?,?)");
+                            ConstantesDAO.INSERT_INTO_USUARIOS_USERNAME_PASS_PESO_TIPO_USER_VALUES);
 
                     ps.setString(1, usuario.getUsername());
                     ps.setString(2, usuario.getPass());
@@ -59,18 +59,18 @@ public class DaoUsuarios {
 
             } catch (EmptyResultDataAccessException emptyResultDataAccessException) {
                 log.error(emptyResultDataAccessException.getMessage());
-                resultado = Either.left("FALTAN PARAMETROS");
+                resultado = Either.left(ConstantesDAO.FALTAN_PARAMETROS);
 
             } catch (DataIntegrityViolationException dataIntegrityViolationException) {
                 log.error(dataIntegrityViolationException.getMessage());
-                resultado = Either.left("EL USUARIO YA EXISTE");
+                resultado = Either.left(ConstantesDAO.EL_USUARIO_YA_EXISTE);
 
             }
 
 
         } else {
 
-            resultado = Either.left("FALTAN PARAMETROS");
+            resultado = Either.left(ConstantesDAO.FALTAN_PARAMETROS);
 
         }
 
@@ -105,18 +105,18 @@ public class DaoUsuarios {
 
             } catch (EmptyResultDataAccessException emptyResultDataAccessException) {
                 log.error(emptyResultDataAccessException.getMessage());
-                resultado = Either.left("FALTAN PARAMETROS");
+                resultado = Either.left(ConstantesDAO.FALTAN_PARAMETROS);
 
             } catch (DataIntegrityViolationException dataIntegrityViolationException) {
                 log.error(dataIntegrityViolationException.getMessage());
-                resultado = Either.left("EL USUARIO YA EXISTE");
+                resultado = Either.left(ConstantesDAO.EL_USUARIO_YA_EXISTE);
 
             }
 
 
         } else {
 
-            resultado = Either.left("FALTAN PARAMETROS");
+            resultado = Either.left(ConstantesDAO.FALTAN_PARAMETROS);
 
         }
 
@@ -132,7 +132,7 @@ public class DaoUsuarios {
 
         try {
 
-            Usuario usuario = jdbcTemplate.queryForObject("select * from usuarios where username = ?", BeanPropertyRowMapper.newInstance(Usuario.class), correo);
+            Usuario usuario = jdbcTemplate.queryForObject(ConstantesDAO.SELECT_FROM_USUARIOS_WHERE_USERNAME, BeanPropertyRowMapper.newInstance(Usuario.class), correo);
 
             if (usuario != null) {
 
@@ -145,14 +145,14 @@ public class DaoUsuarios {
 
             } else {
 
-                respuesta = Either.left("No hay usuario");
+                respuesta = Either.left(ConstantesDAO.NO_HAY_USUARIO);
 
 
             }
 
         } catch (DataAccessException dataAccessException) {
 
-            respuesta = Either.left("Usuario incorrecto");
+            respuesta = Either.left(ConstantesDAO.USUARIO_INCORRECTO);
             log.error(dataAccessException.getMessage());
 
         }
@@ -169,12 +169,12 @@ public class DaoUsuarios {
 
         try {
 
-            respuesta = Either.right(jtm.query("select username,peso,tipo from usuarios join tipo_usuario tu on tu.id = usuarios.tipo_user", BeanPropertyRowMapper.newInstance(UsuarioDTOlist.class)));
+            respuesta = Either.right(jtm.query(ConstantesDAO.SELECT_USERNAME_PESO_TIPO_FROM_USUARIOS_JOIN_TIPO_USUARIO_TU_ON_TU_ID_USUARIOS_TIPO_USER, BeanPropertyRowMapper.newInstance(UsuarioDTOlist.class)));
 
 
         } catch (DataAccessException dataAccessException) {
             log.error(dataAccessException.getMessage());
-            respuesta = Either.left("Usuarios no encontrados");
+            respuesta = Either.left(ConstantesDAO.USUARIOS_NO_ENCONTRADOS);
 
         }
 
@@ -213,9 +213,9 @@ public class DaoUsuarios {
                     );
 
                     //borramos de carreras favoritas
-                    jdbcTemplate.update("Delete from carreras_favoritas where usuario = ?", username);
+                    jdbcTemplate.update(ConstantesDAO.DELETE_FROM_CARRERAS_FAVORITAS_WHERE_USUARIO, username);
                     //borramos usuario
-                    salida = jtm.update("Delete from usuarios where username = ?", username);
+                    salida = jtm.update(ConstantesDAO.DELETE_FROM_USUARIOS_WHERE_USERNAME, username);
 
                     transactionManager.commit(txStatus);
                     sol = true;
@@ -227,9 +227,9 @@ public class DaoUsuarios {
                 if (sol == true) {
                     //Esto en caso de que exista o no
                     if (salida == 1) {
-                        respuesta = Either.right("Usuario con username: " + username + " ELIMINADO");
+                        respuesta = Either.right(ConstantesDAO.USUARIO_CON_USERNAME + username + ConstantesDAO.ELIMINADO);
                     } else {
-                        respuesta = Either.left("Usuario con username: " + username + "no existe");
+                        respuesta = Either.left(ConstantesDAO.USUARIO_CON_USERNAME + username + ConstantesDAO.NO_EXISTE);
                     }
                 }
 
@@ -238,9 +238,9 @@ public class DaoUsuarios {
                 salida = jtm.update("Delete from usuarios where username = ?", username);
 
                 if (salida == 1) {
-                    respuesta = Either.right("Usuario con username: " + username + " ELIMINADO");
+                    respuesta = Either.right(ConstantesDAO.USUARIO_CON_USERNAME + username + ConstantesDAO.ELIMINADO);
                 } else {
-                    respuesta = Either.left("Usuario con username: " + username + "no existe");
+                    respuesta = Either.left(ConstantesDAO.USUARIO_CON_USERNAME + username + ConstantesDAO.NO_EXISTE);
                 }
 
             }
@@ -248,7 +248,7 @@ public class DaoUsuarios {
 
         } catch (DataAccessException dataAccessException) {
             log.error(dataAccessException.getMessage());
-            respuesta = Either.left("Username no encontrado");
+            respuesta = Either.left(ConstantesDAO.USERNAME_NO_ENCONTRADO);
 
         }
 
@@ -264,7 +264,7 @@ public class DaoUsuarios {
 
         try {
 
-            numero = jtm.queryForObject("select count(*) from carreras_favoritas where usuario = ?", Integer.class, username);
+            numero = jtm.queryForObject(ConstantesDAO.SELECT_COUNT_FROM_CARRERAS_FAVORITAS_WHERE_USUARIO, Integer.class, username);
 
 
         } catch (DataAccessException dataAccessException) {

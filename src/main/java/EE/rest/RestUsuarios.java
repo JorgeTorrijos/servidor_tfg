@@ -2,7 +2,6 @@ package EE.rest;
 
 import EE.api.ApiError;
 import EE.servicios.ServiciosUsuarios;
-import dao.modelos.Eventos;
 import dao.modelos.Usuario;
 import dao.modelos.UsuarioDTO;
 import dao.modelos.UsuarioDTOlist;
@@ -21,7 +20,7 @@ import java.util.List;
 
 @PermitAll
 @Log4j2
-@Path("/registro")
+@Path(ConstantesREST.REGISTRO)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RestUsuarios {
@@ -64,7 +63,7 @@ public class RestUsuarios {
 
     @RolesAllowed(ConstantesREST.ADMIN_ROL)
     @POST
-    @Path("/administrador")
+    @Path(ConstantesREST.ADMINISTRADOR)
     public Response registrarAdministrador(Usuario usuario) {
 
         Response response = null;
@@ -93,7 +92,7 @@ public class RestUsuarios {
 
     @RolesAllowed(ConstantesREST.ADMIN_ROL)
     @DELETE
-    public Response deleteUser(@QueryParam("username") String username) {
+    public Response deleteUser(@QueryParam(ConstantesREST.USERNAME_) String username) {
 
         Response response = null;
 

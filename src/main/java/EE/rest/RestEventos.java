@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RolesAllowed(ConstantesREST.USER_ROL)
-@Path("/eventos")
+@Path(ConstantesREST.EVENTOS)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RestEventos {
@@ -28,7 +28,7 @@ public class RestEventos {
     }
 
     @GET
-    public Response getAllEventos(@QueryParam("provincia") String provincia, @QueryParam("tipo") String tipo) {
+    public Response getAllEventos(@QueryParam(ConstantesREST.PROVINCIA) String provincia, @QueryParam(ConstantesREST.TIPO) String tipo) {
 
         Response response = null;
 
@@ -36,7 +36,16 @@ public class RestEventos {
 
         if (getAllEventos.isRight()) {
 
-            response = Response.ok(getAllEventos.get()).build();
+            if(getAllEventos.get().isEmpty()){
+
+                response = Response.status(Response.Status.NO_CONTENT).entity(new ApiError(ConstantesREST.NO_HAY_EVENTOS_DISPONIBLES, LocalDateTime.now())).build();
+
+            } else {
+
+                response = Response.ok(getAllEventos.get()).build();
+
+            }
+
 
         } else {
 
@@ -49,8 +58,8 @@ public class RestEventos {
     }
 
     @GET()
-    @Path("/id")
-    public Response getEventoById(@QueryParam("id_evento") int id_evento) {
+    @Path(ConstantesREST.ID_PATH)
+    public Response getEventoById(@QueryParam(ConstantesREST.ID_EVENTO_) int id_evento) {
 
         Response response = null;
 
@@ -96,7 +105,7 @@ public class RestEventos {
 
     @RolesAllowed(ConstantesREST.ADMIN_ROL)
     @DELETE
-    public Response deleteEvento(@QueryParam("id_evento") String id_evento) {
+    public Response deleteEvento(@QueryParam(ConstantesREST.ID_EVENTO_) String id_evento) {
 
         Response response = null;
 

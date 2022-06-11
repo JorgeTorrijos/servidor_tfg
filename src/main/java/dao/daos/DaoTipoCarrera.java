@@ -34,7 +34,7 @@ public class DaoTipoCarrera {
 
         } catch (DataAccessException dataAccessException) {
             log.error(dataAccessException.getMessage());
-            respuesta = Either.left("Tipos de Carrera no encontrados");
+            respuesta = Either.left(ConstantesDAO.TIPOS_DE_CARRERA_NO_ENCONTRADOS);
 
         }
 

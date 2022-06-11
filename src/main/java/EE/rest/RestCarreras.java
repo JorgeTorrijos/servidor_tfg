@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RolesAllowed(ConstantesREST.USER_ROL)
-@Path("/carreras")
+@Path(ConstantesREST.CARRERAS)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RestCarreras {
@@ -29,7 +29,7 @@ public class RestCarreras {
     }
 
     @GET
-    public Response getAllCarrerasByIdEvento(@QueryParam("id_evento") int id_evento) {
+    public Response getAllCarrerasByIdEvento(@QueryParam(ConstantesREST.ID_EVENTO) int id_evento) {
 
         Response response = null;
 
@@ -50,8 +50,8 @@ public class RestCarreras {
     }
 
     @GET()
-    @Path("/id")
-    public Response getEventoById(@QueryParam("id_carrera") int id_carrera) {
+    @Path(ConstantesREST.ID)
+    public Response getEventoById(@QueryParam(ConstantesREST.ID_CARRERA) int id_carrera) {
 
         Response response = null;
 
@@ -73,8 +73,8 @@ public class RestCarreras {
     }
 
     @GET()
-    @Path("/user")
-    public Response getEventoById(@QueryParam("user") String user) {
+    @Path(ConstantesREST.USER)
+    public Response getEventoById(@QueryParam(ConstantesREST.USER_) String user) {
 
         Response response = null;
 
@@ -117,7 +117,7 @@ public class RestCarreras {
     }
 
     @GET
-    @Path("/all")
+    @Path(ConstantesREST.ALL)
     public Response getAllCarreras() {
         Response response = null;
 
@@ -138,7 +138,7 @@ public class RestCarreras {
 
     @RolesAllowed(ConstantesREST.ADMIN_ROL)
     @DELETE
-    public Response deleteCarrera(@QueryParam("id") String id) {
+    public Response deleteCarrera(@QueryParam(ConstantesREST.ID_) String id) {
 
         Response response = null;
 

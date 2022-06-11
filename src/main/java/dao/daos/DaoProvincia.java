@@ -34,7 +34,7 @@ public class DaoProvincia {
 
         } catch (DataAccessException dataAccessException) {
             log.error(dataAccessException.getMessage());
-            respuesta = Either.left("Provincias no encontradas");
+            respuesta = Either.left(ConstantesDAO.PROVINCIAS_NO_ENCONTRADAS);
 
         }
 

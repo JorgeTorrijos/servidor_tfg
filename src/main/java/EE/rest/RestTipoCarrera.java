@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RolesAllowed(ConstantesREST.USER_ROL)
-@Path("/tipos")
+@Path(ConstantesREST.TIPOS)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RestTipoCarrera {

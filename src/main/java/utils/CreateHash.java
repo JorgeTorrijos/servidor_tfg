@@ -8,14 +8,14 @@ import java.util.Map;
 
 public class CreateHash {
 
-    private Pbkdf2PasswordHash passwordHash;
+    private final Pbkdf2PasswordHash passwordHash;
 
     @Inject
     public CreateHash(Pbkdf2PasswordHash passwordHash) {
         this.passwordHash = passwordHash;
     }
 
-    public String hashear(String pass){
+    public String hashear(String pass) {
 
         Map<String, String> parameters = new HashMap<>();
         parameters.put(ConstantesUtils.PBKDF_2_PASSWORD_HASH_ITERATIONS, ConstantesUtils.VALUE_3072);
@@ -28,13 +28,9 @@ public class CreateHash {
 
     }
 
-    public boolean verify(String pass,String hass){
+    public boolean verify(String pass, String hass) {
 
-        boolean solution = false;
-
-        if(passwordHash.verify(pass.toCharArray(),hass)){
-            solution = true;
-        }
+        boolean solution = passwordHash.verify(pass.toCharArray(), hass);
 
         return solution;
 

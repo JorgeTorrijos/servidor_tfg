@@ -13,7 +13,7 @@ import jakarta.ws.rs.core.Response;
 import java.time.LocalDateTime;
 
 @RolesAllowed(ConstantesREST.USER_ROL)
-@Path("/carreras-favoritas")
+@Path(ConstantesREST.CARRERAS_FAVORITAS)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class RestCarrerasFavoritas {
@@ -46,7 +46,7 @@ public class RestCarrerasFavoritas {
     }
 
     @DELETE
-    public Response deleteCarrera(@QueryParam("id_carrera") int id_carrera ,@QueryParam("usuario") String usuario) {
+    public Response deleteCarrera(@QueryParam(ConstantesREST.ID_CARRERA_) int id_carrera, @QueryParam(ConstantesREST.USUARIO) String usuario) {
         Response response = null;
 
         CarreraFavoritaInsert carreraFavoritaInsert = new CarreraFavoritaInsert();
@@ -58,7 +58,7 @@ public class RestCarrerasFavoritas {
 
         if (insertPartido.isRight()) {
 
-            response = Response.ok(new ApiError(insertPartido.get(),LocalDateTime.now())).build();
+            response = Response.ok(new ApiError(insertPartido.get(), LocalDateTime.now())).build();
 
 
         } else {

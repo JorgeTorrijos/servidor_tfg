@@ -12,9 +12,8 @@ import javax.sql.DataSource;
 @Singleton
 public class DBConnectionPool {
 
-    private DataSource hirakiDatasource = null;
-
     private final Configuration config;
+    private DataSource hirakiDatasource = null;
 
     @Inject
     public DBConnectionPool(Configuration config) {
@@ -25,7 +24,6 @@ public class DBConnectionPool {
 
     private DataSource getDataSourceHikari() {
         HikariConfig config = new HikariConfig();
-
 
 
         config.setJdbcUrl(this.config.getRuta());

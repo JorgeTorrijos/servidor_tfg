@@ -42,7 +42,7 @@ public class DaoEventos {
 
             } catch (DataAccessException dataAccessException) {
                 log.error(dataAccessException.getMessage());
-                respuesta = Either.left("Eventos no encontrados");
+                respuesta = Either.left(ConstantesDAO.EVENTOS_NO_ENCONTRADOS);
 
             }
 
@@ -59,7 +59,7 @@ public class DaoEventos {
 
                 } catch (DataAccessException dataAccessException) {
                     log.error(dataAccessException.getMessage());
-                    respuesta = Either.left("Eventos no encontrados");
+                    respuesta = Either.left(ConstantesDAO.EVENTOS_NO_ENCONTRADOS);
 
                 }
 
@@ -74,7 +74,7 @@ public class DaoEventos {
 
                 } catch (DataAccessException dataAccessException) {
                     log.error(dataAccessException.getMessage());
-                    respuesta = Either.left("Eventos no encontrados");
+                    respuesta = Either.left(ConstantesDAO.EVENTOS_NO_ENCONTRADOS);
 
                 }
 
@@ -89,7 +89,7 @@ public class DaoEventos {
 
                 } catch (DataAccessException dataAccessException) {
                     log.error(dataAccessException.getMessage());
-                    respuesta = Either.left("Eventos no encontrados");
+                    respuesta = Either.left(ConstantesDAO.EVENTOS_NO_ENCONTRADOS);
 
                 }
 
@@ -104,7 +104,7 @@ public class DaoEventos {
 
                 } catch (DataAccessException dataAccessException) {
                     log.error(dataAccessException.getMessage());
-                    respuesta = Either.left("Eventos no encontrados");
+                    respuesta = Either.left(ConstantesDAO.EVENTOS_NO_ENCONTRADOS);
 
                 }
 
@@ -123,7 +123,7 @@ public class DaoEventos {
 
                 } catch (DataAccessException dataAccessException) {
                     log.error(dataAccessException.getMessage());
-                    respuesta = Either.left("Eventos no encontrados");
+                    respuesta = Either.left(ConstantesDAO.EVENTOS_NO_ENCONTRADOS);
 
                 }
 
@@ -138,7 +138,7 @@ public class DaoEventos {
 
                 } catch (DataAccessException dataAccessException) {
                     log.error(dataAccessException.getMessage());
-                    respuesta = Either.left("Eventos no encontrados");
+                    respuesta = Either.left(ConstantesDAO.EVENTOS_NO_ENCONTRADOS);
 
                 }
 
@@ -163,7 +163,7 @@ public class DaoEventos {
 
         } catch (DataAccessException dataAccessException) {
             log.error(dataAccessException.getMessage());
-            respuesta = Either.left("Eventos no encontrados");
+            respuesta = Either.left(ConstantesDAO.EVENTOS_NO_ENCONTRADOS);
 
         }
 
@@ -179,7 +179,7 @@ public class DaoEventos {
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        try{
+        try {
 
             jdbcTemplate.update(connection -> {
 
@@ -203,9 +203,9 @@ public class DaoEventos {
 
             respuesta = Either.right(eventosToInsertNew);
 
-        }catch (DataAccessException dataAccessException) {
+        } catch (DataAccessException dataAccessException) {
             log.error(dataAccessException.getMessage());
-            respuesta = Either.left("PROBLEMA AL INSERTAR EVENTO");
+            respuesta = Either.left(ConstantesDAO.PROBLEMA_AL_INSERTAR_EVENTO);
 
         }
 
@@ -221,12 +221,12 @@ public class DaoEventos {
 
         try {
 
-            jtm.update("Delete from eventos where id = ?", id);
-            respuesta =  Either.right("Evento con ID: " + id + " ELIMINADO");
+            jtm.update(ConstantesDAO.DELETE_FROM_EVENTOS_WHERE_ID, id);
+            respuesta = Either.right(ConstantesDAO.EVENTO_CON_ID + id + ConstantesDAO.ELIMINADO_);
 
         } catch (DataAccessException dataAccessException) {
             log.error(dataAccessException.getMessage());
-            respuesta = Either.left("Eventos no encontrado");
+            respuesta = Either.left(ConstantesDAO.EVENTOS_NO_ENCONTRADO);
 
         }
 

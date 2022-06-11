@@ -9,18 +9,18 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class ServiciosCarrerasFavoritas {
 
-    private DaoCarrerasFavoritas daoCarrerasFavoritas;
+    private final DaoCarrerasFavoritas daoCarrerasFavoritas;
 
     @Inject
     public ServiciosCarrerasFavoritas(DaoCarrerasFavoritas daoCarrerasFavoritas) {
         this.daoCarrerasFavoritas = daoCarrerasFavoritas;
     }
 
-    public Either<String, CarreraFavoritaInsert> insertCarrerasFavoritas(CarreraFavoritaInsert carreraToInsert){
+    public Either<String, CarreraFavoritaInsert> insertCarrerasFavoritas(CarreraFavoritaInsert carreraToInsert) {
         return daoCarrerasFavoritas.insertCarrerasFavoritas(carreraToInsert);
     }
 
-    public Either<String,String> deleteCarrera(CarreraFavoritaInsert carreraFavoritaInsert){
+    public Either<String, String> deleteCarrera(CarreraFavoritaInsert carreraFavoritaInsert) {
         return daoCarrerasFavoritas.deleteCarrera(carreraFavoritaInsert);
     }
 }
